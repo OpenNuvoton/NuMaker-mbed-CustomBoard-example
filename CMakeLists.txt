@@ -46,6 +46,7 @@ endif()
 if("NU_IOT_M2354" IN_LIST MBED_TARGET_LABELS)
     add_library(mbed-nu-iot-m2354 INTERFACE)
     add_subdirectory(TARGET_NU_IOT_M2354)
+    add_subdirectory(TARGET_M2354/LCD)
     target_include_directories(mbed-nu-iot-m2354
         INTERFACE
             TARGET_NU_IOT_M2354
@@ -54,8 +55,20 @@ if("NU_IOT_M2354" IN_LIST MBED_TARGET_LABELS)
         INTERFACE
             mbed-m2354
             mbed-m2354-tfm
+            mbed-m2354-lcd 
     )
 endif()
+
+if("NU_M2354" IN_LIST MBED_TARGET_LABELS)
+    add_subdirectory(TARGET_M2354/LCD)
+    target_link_libraries(mbed-nu-m2354
+        INTERFACE
+            mbed-m2354
+            mbed-m2354-tfm
+            mbed-m2354-lcd 
+    )
+endif()
+
 
 mbed_set_post_build(${APP_TARGET})
 
